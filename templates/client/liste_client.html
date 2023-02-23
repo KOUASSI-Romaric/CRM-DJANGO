@@ -1,0 +1,52 @@
+{% extends 'main.html'%}
+
+{% block contenu %}
+
+
+	<br>
+
+<div class="row">
+	<div class="col-md">
+		<h5>Clients:</h5>
+		<hr>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+				{{myFilterClient.form }}
+		  </form>
+		</div>
+	</div>
+</div>
+<br>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_client'%}">Ajouter Un Client</a>
+			<table class="table table-sm">
+				<tr>
+					<th>ID</th>
+					<th>Client</th>
+					<th>Téléphone</th>
+					<th>Date de Création</th>
+					<th>Détails</th>
+					<th>Mise A Jour</th>
+					<th>Supprimer</th>
+				</tr>
+				{% for client in client %}
+				<tr>
+					<td><a href=" {% url 'client' client.id%}">{{client.id}}</a></td>
+					<td>{{client.nom}}</td>
+					<td>{{client.telephone}}</td>
+					<td>{{client.date_creation}}</td>
+					<td><a class="btn btn-sm btn-info" href=" {% url 'client' client.id%}">Détails</a></td>
+					<td><a class="btn btn-sm btn-info" href=" {% url 'modifier_client' client.id%}">Modifier</a></td>
+					<td><a class="btn btn-sm btn-danger" href="{% url 'supprimer_client' client.id%} ">Supprimer</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+ {% endblock %}

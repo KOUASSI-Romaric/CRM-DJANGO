@@ -1,7 +1,6 @@
 from django.db import models
 from client.models import Client
 from produit.models import Produit
-from produit.models import Tag
 
 
 # Create your models here.

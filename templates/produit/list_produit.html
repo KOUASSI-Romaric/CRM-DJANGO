@@ -6,12 +6,44 @@
 	<br>
 
 <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Produit:</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'modifier_produit' produit.id%}">Modifier le Produit</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'supprimer_produit' produit.id%}">Supprimer le Produit</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Informations</h5>
+			<hr>
+			<p>Nom: {{produit.nom}}</p>
+			<p>Prix: {{produit.prix}} </p>
+			<p>Tag: {{produit.tag}} </p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total des Commandes du Produit</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{commande_total}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
 	<div class="col">
 		<div class="card card-body">
 			<form method="get">
 
 		    <button class="btn btn-primary" type="submit">Search</button>
-				{{myFilterCommande.form}}
+				{{myFilterCommande.form }}
 		  </form>
 		</div>
 	</div>
@@ -22,11 +54,9 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_commande'%}">Ajouter Une Commande</a>
 			<table class="table table-sm">
 				<tr>
 					<th>Client</th>
-					<th>Produit</th>
 					<th>Date de Commande</th>
 					<th>Status</th>
 					<th>Mise à Jour</th>
@@ -35,7 +65,6 @@
 				{% for commande in commande%}
 				<tr>
 					<td>{{commande.client}}</td>
-					<td>{{commande.produit}}</td>
 					<td>{{commande.date_creation}}</td>
 					<td>{{commande.status}}</td>
 					<td><a class="btn btn-sm btn-info" href=" {% url 'modifier_commande' commande.id%}">Modifier</a></td>

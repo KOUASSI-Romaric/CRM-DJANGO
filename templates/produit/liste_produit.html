@@ -1,0 +1,49 @@
+{% extends 'main.html'%}
+
+{% block contenu %}
+
+<div class="col-md">
+		<div class="card card-body">
+
+			<h5>Produit:</h5>
+			<hr>
+			<div class="card card-body">
+			<div class="row">
+				<div class="col">
+					<div class="card card-body">
+						<form method="get">
+		   				 	<button class="btn btn-primary" type="submit">Search</button>
+							{{myFilterProduit.form }}
+						</form>
+					</div>
+				</div>
+			</div>
+				<br>
+				<a class="btn btn-primary  btn-sm btn-block" href="{% url 'ajout_produit'%}">Ajouter un produit</a>
+				<table class="table table-sm">
+					<tr>
+						<th>ID</th>
+						<th>Produit</th>
+						<th>Prix</th>
+						<th>Date de création</th>
+						<th>Détail</th>
+						<th>Mise à Jour</th>
+						<th>Supprimer</th>
+					</tr>
+					{% for produit in produits%}
+					<tr>
+						<td>{{produit.id}}</td>
+						<td>{{produit.nom}}</td>
+						<td>{{produit.prix}}</td>
+						<td>{{produit.date_creation}}</td>
+						<td><a class="btn btn-sm btn-info" href=" {% url 'produit' produit.id%}">Détails</a></td>
+						<td><a class="btn btn-sm btn-info" href=" {% url 'modifier_produit' produit.id%}">Modifier</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'supprimer_produit' produit.id%} ">Supprimer</a></td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+
+ {% endblock %}

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Client
 from .forms import ClientForm
+from commande.filtre import CommandeFiltre
+from client.filtre import ClientFiltre
 
 
 # Create your views here.
@@ -8,8 +10,18 @@ def list_client(request, pk):
     client = Client.objects.get(id=pk)
     commande = client.commande_set.all()
     commande_total = commande.count()
-    context = {'client': client, 'commande': commande, 'commande_total': commande_total}
+    myFilter = CommandeFiltre(request.GET, queryset=commande)
+    commande = myFilter.qs
+    context = {'client': client, 'commande': commande, 'commande_total': commande_total, 'myFilter': myFilter}
     return render(request, 'client/list_client.html', context)
+
+
+def liste_client(request):
+    client = Client.objects.all()
+    myFilterClient = ClientFiltre(request.GET, queryset=client)
+    client = myFilterClient.qs
+    context = {'client': client, 'myFilterClient': myFilterClient}
+    return render(request, 'client/liste_client.html', context)
 
 
 def ajouter_client(request):
@@ -26,11 +38,20 @@ def ajouter_client(request):
 
 def modifier_client(request, pk):
     client = Client.objects.get(id=pk)
-
-    return render(request, 'client/modifier_client.html')
+    form = ClientForm(instance=client)
+    if request.method == 'POST':
+        form = ClientForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'client/ajouter_client.html', context)
 
 
 def supprimer_client(request, pk):
     client = Client.objects.get(id=pk)
-
-    return render(request, 'client/supprimer_client.html')
+    if request.method == 'POST':
+        client.delete()
+        return redirect('/')
+    context = {'item': client}
+    return render(request, 'client/supprimer_client.html', context)

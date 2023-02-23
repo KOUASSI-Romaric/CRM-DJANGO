@@ -16,4 +16,4 @@ class Produit(models.Model):
     tag = models.ManyToManyField(Tag)
 
     def __str__(self):
-        return self.nom
+        return '{}: {}'.format(self.nom, self.prix)

@@ -10,8 +10,8 @@
 		<div class="card card-body">
 			<h5>Client:</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Modifier le Client</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Supprimer le Client</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'modifier_client' client.id%}">Modifier le Client</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'supprimer_client' client.id%}">Supprimer le Client</a>
 
 		</div>
 	</div>
@@ -27,7 +27,7 @@
 
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Total des Commandes</h5>
+			<h5>Total des Commandes du Client</h5>
 			<hr>
 			<h1 style="text-align: center;padding: 10px">{{commande_total}}</h1>
 		</div>
@@ -42,10 +42,10 @@
 			<form method="get">
 
 		    <button class="btn btn-primary" type="submit">Search</button>
+				{{myFilter.form }}
 		  </form>
 		</div>
 	</div>
-
 </div>
 <br>
 
@@ -65,8 +65,8 @@
 					<td>{{commande.produit}}</td>
 					<td>{{commande.date_creation}}</td>
 					<td>{{commande.status}}</td>
-					<td><a href="">Mise à Jour</a></td>
-					<td><a href="">Supprimer</a></td>
+					<td><a class="btn btn-sm btn-info" href=" {% url 'modifier_commande' commande.id%}">Modifier</a></td>
+					<td><a class="btn btn-sm btn-danger" href="{% url 'supprimer_commande' commande.id%} ">Supprimer</a></td>
 				</tr>
 				{% endfor%}
 			</table>
