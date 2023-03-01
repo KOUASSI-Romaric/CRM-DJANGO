@@ -3,9 +3,11 @@ from .models import Client
 from .forms import ClientForm
 from commande.filtre import CommandeFiltre
 from client.filtre import ClientFiltre
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login')
 def list_client(request, pk):
     client = Client.objects.get(id=pk)
     commande = client.commande_set.all()
@@ -16,6 +18,7 @@ def list_client(request, pk):
     return render(request, 'client/list_client.html', context)
 
 
+@login_required(login_url='login')
 def liste_client(request):
     client = Client.objects.all()
     myFilterClient = ClientFiltre(request.GET, queryset=client)
@@ -24,6 +27,7 @@ def liste_client(request):
     return render(request, 'client/liste_client.html', context)
 
 
+@login_required(login_url='login')
 def ajouter_client(request):
     form = ClientForm()
     if request.method == 'POST':
@@ -36,6 +40,7 @@ def ajouter_client(request):
     return render(request, 'client/ajouter_client.html', context)
 
 
+@login_required(login_url='login')
 def modifier_client(request, pk):
     client = Client.objects.get(id=pk)
     form = ClientForm(instance=client)
@@ -48,6 +53,7 @@ def modifier_client(request, pk):
     return render(request, 'client/ajouter_client.html', context)
 
 
+@login_required(login_url='login')
 def supprimer_client(request, pk):
     client = Client.objects.get(id=pk)
     if request.method == 'POST':

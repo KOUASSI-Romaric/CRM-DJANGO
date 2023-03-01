@@ -4,9 +4,11 @@ from client.models import Client
 from .models import Produit, Tag
 from .forms import ProduitForm
 from .filtre import ProduitFiltre
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login')
 def home(request):
     commandes = Commande.objects.all()
     clients = Client.objects.all()
@@ -17,6 +19,7 @@ def home(request):
     return render(request, 'produit/accueil.html', context)
 
 
+@login_required(login_url='login')
 def liste_produit(request):
     commandes = Commande.objects.all()
     clients = Client.objects.all()
@@ -27,6 +30,7 @@ def liste_produit(request):
     return render(request, 'produit/liste_produit.html', context)
 
 
+@login_required(login_url='login')
 def list_produit(request, pk):
     produit = Produit.objects.get(id=pk)
     commande = produit.commande_set.all()
@@ -36,6 +40,7 @@ def list_produit(request, pk):
     return render(request, 'produit/list_produit.html', context)
 
 
+@login_required(login_url='login')
 def ajouter_produit(request):
     form = ProduitForm()
     if request.method == 'POST':
@@ -47,6 +52,7 @@ def ajouter_produit(request):
     return render(request, 'produit/ajouter_produit.html', context)
 
 
+@login_required(login_url='login')
 def modifier_produit(request, pk):
     produit = Produit.objects.get(id=pk)
     form = ProduitForm(instance=produit)
@@ -58,6 +64,7 @@ def modifier_produit(request, pk):
     return render(request, 'produit/ajouter_produit.html', context)
 
 
+@login_required(login_url='login')
 def supprimer_produit(request, pk):
     produit = Produit.objects.get(id=pk)
     if request.method == 'POST':

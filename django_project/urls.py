@@ -20,8 +20,8 @@ urlpatterns = [
     # les liens qui seront activés dans notre appli
     path('admin/', admin.site.urls),
     path('', include('produit.urls')),  # la partie qui s'affiche dans l'accueil de notre appli
-    path('client', include('client.urls')),
-    path('commande', include('commande.urls')),
-    path('compte', include('compte.urls')),
+    path('client/', include('client.urls')),
+    path('commande/', include('commande.urls')),
+    path('compte/', include('compte.urls')),
 
 ]

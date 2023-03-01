@@ -4,9 +4,11 @@ from .models import Commande
 from client.models import Client
 from produit.models import Produit
 from .filtre import CommandeFiltre
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url='login')
 def list_commande(request):
     commande = Commande.objects.all()
     myFilterCommande = CommandeFiltre(request.GET, queryset=commande)
@@ -15,6 +17,7 @@ def list_commande(request):
     return render(request, 'commande/list_commande.html', context)
 
 
+@login_required(login_url='login')
 def ajouter_commande(request):
     form = CommandeForm()
     if request.method == 'POST':
@@ -28,6 +31,7 @@ def ajouter_commande(request):
     return render(request, 'commande/ajouter_commande.html', context)
 
 
+@login_required(login_url='login')
 def modifier_commande(request, pk):
     commande = Commande.objects.get(id=pk)
     form = CommandeForm(instance=commande)
@@ -40,6 +44,7 @@ def modifier_commande(request, pk):
     return render(request, 'commande/ajouter_commande.html', context)
 
 
+@login_required(login_url='login')
 def supprimer_commande(request, pk):
     commande = Commande.objects.get(id=pk)
     if request.method == 'POST':
